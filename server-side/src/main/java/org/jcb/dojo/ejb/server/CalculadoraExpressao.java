@@ -2,6 +2,9 @@ package org.jcb.dojo.ejb.server;
 
 import java.util.Stack;
 
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
 import org.jcb.dojo.ejb.framework.Divisao;
 import org.jcb.dojo.ejb.framework.Multiplicacao;
 import org.jcb.dojo.ejb.framework.Nodo;
@@ -9,7 +12,8 @@ import org.jcb.dojo.ejb.framework.Soma;
 import org.jcb.dojo.ejb.framework.Subtracao;
 import org.jcb.dojo.ejb.framework.Valor;
 
-
+@Stateless
+@Remote(CalculadoraExpressaoInterface.class)
 public class CalculadoraExpressao implements CalculadoraExpressaoInterface{
 
 	@Override
@@ -18,11 +22,11 @@ public class CalculadoraExpressao implements CalculadoraExpressaoInterface{
 			return "";
 		}
 		StringBuilder expressaoTratada = preparaExpressao(expressao);
-		String[] teste = expressaoTratada.toString().split(" ");
+		String[] expressaoArray = expressaoTratada.toString().split(" ");
 		Stack<Double> pilhaRPN = new Stack<Double>();
 		Nodo esquerda, direita, calculo;
-		for (int i = 0; i < teste.length; i++){
-			switch (teste[i]) {
+		for (int i = 0; i < expressaoArray.length; i++){
+			switch (expressaoArray[i]) {
 			case "+":
 				direita = new Valor(pilhaRPN.pop());
 				esquerda = new Valor(pilhaRPN.pop());
@@ -48,7 +52,7 @@ public class CalculadoraExpressao implements CalculadoraExpressaoInterface{
 				pilhaRPN.push(calculo.calcula());
 				break;
 			default:
-				pilhaRPN.push(Double.parseDouble(teste[i]));
+				pilhaRPN.push(Double.parseDouble(expressaoArray[i]));
 				break;
 			}
 			

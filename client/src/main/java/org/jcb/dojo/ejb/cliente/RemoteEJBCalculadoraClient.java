@@ -59,7 +59,7 @@ public class RemoteEJBCalculadoraClient {
 
 		// let's do the lookup
 		return (CalculadoraExpressaoInterface) context
-				.lookup("ejb:/wildfly-ejb-remote-server-side/CalculadoraExpressaoInterface!" + CalculadoraExpressaoInterface.class.getName());
+				.lookup("ejb:/wildfly-ejb-remote-server-side/CalculadoraExpressao!" + CalculadoraExpressaoInterface.class.getName());
 	}
 
 
