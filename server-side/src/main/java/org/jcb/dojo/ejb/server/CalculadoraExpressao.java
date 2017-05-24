@@ -49,16 +49,24 @@ public class CalculadoraExpressao implements CalculadoraExpressaoInterface{
 				direita = new Valor(pilhaRPN.pop());
 				esquerda = new Valor(pilhaRPN.pop());
 				calculo = new Divisao(esquerda, direita);
+				if (direita.calcula() == 0.0){
+					return "Não pode dividir por zero!";
+				}
 				pilhaRPN.push(calculo.calcula());
 				break;
 			default:
-				pilhaRPN.push(Double.parseDouble(expressaoArray[i]));
+				try {
+					pilhaRPN.push(Double.parseDouble(expressaoArray[i]));
+				} catch (NumberFormatException e) {	  
+			           return "Expressão não pode conter letras!";
+				}
+				
 				break;
 			}
 			
 		}
 		
-		return pilhaRPN.peek().toString();
+		return "Resultado da Expressão: " + pilhaRPN.peek().toString();
 	}
 	
 	@Override

@@ -13,19 +13,32 @@ import org.jcb.dojo.ejb.server.CalculadoraExpressaoInterface;
 public class RemoteEJBCalculadoraClient {
 
 	public static void main(String[] args) throws Exception {
-		System.out.println("###########################\nexecutando remoto");
+		System.out.println("###########################\nExecutando remoto");
 
 		invokeCalculadora();
 	}
 
 	private static void invokeCalculadora() throws NamingException {
 		final CalculadoraExpressaoInterface calc = lookupRemoteCalculadora();
-		System.out.println("############## Executando HELLO !!!");
+		System.out.println("##############\nExecutando Calculadora!!!");
 		Scanner input = new Scanner(System.in);
 		String expressao;
-		System.out.println("Entre com a expressão: ");
-		expressao = input.next();
-		System.out.println("Resultado da Expressão: " + calc.calculaExpressao(expressao));
+		int opcao = 1;
+		while (opcao != 0){
+			System.out.println("Entre com a expressão: ");
+			Scanner input1 = new Scanner(System.in);
+			expressao = input1.next();
+			System.out.println("\n" + calc.calculaExpressao(expressao));
+			System.out.println("###############\n- Enviar outra expressão (1) ou Sair (0)?");
+//			System.out.println("1. Enviar outra expressão");
+//			System.out.println("0. Sair");
+//			System.out.println("Opção: ");
+			opcao = input.nextInt();
+			if (opcao != 0){
+				System.out.println("#####################################");
+				System.out.println("#####################################");
+			}
+		}
 	}
 	
 	private static CalculadoraExpressaoInterface lookupRemoteCalculadora() throws NamingException {
